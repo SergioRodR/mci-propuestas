@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MCI — Propuestas de Diseño Web</title>
+<meta name="description" content="Portal de selección de propuestas de diseño web para MCI - Movilidad Corporativa Integral." />
+<style>
+  :root {
+    --navy: #002B5C;
+    --royal: #0038A8;
+    --slate: #8A8D8F;
+    --gold: #A07C00;
+    --bg: #f5f6f7;
+    --surface: #ffffff;
+    --text: #14171a;
+    --text-muted: #5b6066;
+    --border: #e3e5e7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #05070a;
+      --surface: #0d1117;
+      --text: #eef1f4;
+      --text-muted: #9aa1a8;
+      --border: #1f2530;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #05070a;
+    --surface: #0d1117;
+    --text: #eef1f4;
+    --text-muted: #9aa1a8;
+    --border: #1f2530;
+  }
+  :root[data-theme="light"] {
+    --bg: #f5f6f7;
+    --surface: #ffffff;
+    --text: #14171a;
+    --text-muted: #5b6066;
+    --border: #e3e5e7;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(24px, 5vw, 64px) 20px 40px;
+  }
+
+  .brand-bar {
+    width: 100%;
+    max-width: 1040px;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--navy), var(--royal), var(--gold));
+    margin-bottom: clamp(28px, 5vw, 48px);
+  }
+
+  header.portal-header {
+    width: 100%;
+    max-width: 1040px;
+    text-align: center;
+    margin-bottom: clamp(36px, 6vw, 64px);
+  }
+
+  .logo {
+    height: 56px;
+    width: auto;
+    margin-bottom: 20px;
+    opacity: 0.95;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+    margin: 0 0 10px;
+  }
+  h1 .accent { color: var(--gold); }
+
+  .subhead {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  main {
+    width: 100%;
+    max-width: 1040px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: clamp(20px, 3vw, 28px);
+  }
+
+  a.card {
+    display: block;
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(28px, 4vw, 40px) clamp(24px, 4vw, 32px);
+    text-decoration: none;
+    color: inherit;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  a.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-accent, var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  a.card:hover, a.card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 43, 92, 0.14);
+    border-color: var(--card-accent, var(--gold));
+  }
+  a.card:hover::before, a.card:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .card-01 { --card-accent: var(--royal); }
+  .card-02 { --card-accent: var(--gold); }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--gold));
+    background: color-mix(in srgb, var(--card-accent, var(--gold)) 12%, transparent);
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .card h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 10px;
+    letter-spacing: 0.01em;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--gold));
+  }
+  .card-cta svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+  }
+  a.card:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  footer.portal-footer {
+    width: 100%;
+    max-width: 1040px;
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+  <div class="brand-bar" role="presentation"></div>
+
+  <header class="portal-header">
+    <img class="logo" src="./assets/brand/Logo_MCI_transparente.png" alt="MCI — Movilidad Corporativa Integral" />
+    <h1>MCI <span class="accent">|</span> Movilidad Corporativa Integral<br>Propuestas de Diseño Web</h1>
+    <p class="subhead">
+      Selecciona una propuesta para ver el prototipo interactivo completo.<br>
+      Select a proposal below to view the full interactive prototype.
+    </p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <a class="card card-01" href="./propuesta-1/" aria-label="Ver Propuesta 01 — Corporativo Institucional">
+        <span class="card-tag">Propuesta 01</span>
+        <h2>Corporativo Institucional</h2>
+        <p>
+          Línea editorial clásica, sobria y confiable — pensada para transmitir solidez corporativa y seguridad ejecutiva.
+        </p>
+        <span class="card-cta">
+          Ver propuesta
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+
+      <a class="card card-02" href="./propuesta-2/" aria-label="Ver Propuesta 02 — Dark Executive Editorial">
+        <span class="card-tag">Propuesta 02</span>
+        <h2>Dark Executive Editorial</h2>
+        <p>
+          Estética oscura, editorial y de alto contraste — con tipografía protagonista y un enfoque premium / lifestyle.
+        </p>
+        <span class="card-cta">
+          Ver propuesta
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    Prototipos interactivos, totalmente responsivos, para revisión del cliente.<br>
+    Interactive, fully responsive prototypes for client review.
+  </footer>
+
+</body>
+</html>
